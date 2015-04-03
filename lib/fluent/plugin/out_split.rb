@@ -9,6 +9,7 @@ module Fluent
     config_param :key_name, :string
     config_param :out_key, :string, :default => nil
     config_param :reserve_msg, :bool, :default => nil
+    config_param :prefix, :string, :default => nil
 
     def configure(conf)
       super
@@ -19,6 +20,11 @@ module Fluent
       end
 
       @sep_regex = Regexp.new(@separator)
+      if (!prefix.nil? && prefix.is_a?(String))
+        @store_fun = method(:store_with_prefix)
+      else
+        @store_fun = method(:store)
+      end
     end
 
     def emit(tag, es, chain)
@@ -44,9 +50,18 @@ module Fluent
       data = {}
       message.split(@sep_regex).each do |e|
         matched = @format_regex.match(e) or next
-        data.store(matched['key'], matched['value'])
+        @store_fun.call(data, matched['key'], matched['value'])
       end
       data
     end
+
+    def store(data, key, value)
+      data.store(key, value)
+    end
+
+    def store_with_prefix(data, key, value)
+      data.store(@prefix+key, value)
+    end
+
   end
 end
