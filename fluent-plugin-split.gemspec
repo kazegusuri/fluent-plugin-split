@@ -7,9 +7,9 @@ Gem::Specification.new do |spec|
   spec.version       = "0.0.1"
   spec.authors       = ["Masahiro Sano"]
   spec.email         = ["sabottenda@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{Fluentd output plugin to split a record into multiple records with key/value pair}
+  spec.summary       = %q{Fluentd output plugin to split a record into multiple records with key/value pair}
+  spec.homepage      = "https://github.com/sabottenda/fluent-plugin-split"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
