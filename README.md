@@ -46,3 +46,4 @@ $ gem install fluent-plugin-split
 |key_name| key name to be split | |
 |out_key| key name of json object which includes divided records | nil |
 |reserve_msg| if original message is reserved or not | nil |
+|keys_prefix| if set, all extracted keys names will be preceded by this string | nil |

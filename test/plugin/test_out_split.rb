@@ -90,4 +90,19 @@ class SplitOutputTest < Test::Unit::TestCase
       {"data" => {"key1" => "val1", "key2" => "val2"}},
     ], d.records
   end
+
+  def test_format_keysprefix
+    d = create_driver(CONFIG + %[
+      out_key data
+      keys_prefix extracted_
+    ])
+
+    d.run do
+      d.emit({"message" => "key1=val1 key2=val2"})
+    end
+
+    assert_equal [
+      {"data" => {"extracted_key1" => "val1", "extracted_key2" => "val2"}},
+    ], d.records
+  end
 end
