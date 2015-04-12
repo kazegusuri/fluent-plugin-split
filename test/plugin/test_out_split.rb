@@ -91,10 +91,10 @@ class SplitOutputTest < Test::Unit::TestCase
     ], d.records
   end
 
-  def test_format_prefix
+  def test_format_keysprefix
     d = create_driver(CONFIG + %[
       out_key data
-      prefix extracted_
+      keys_prefix extracted_
     ])
 
     d.run do

@@ -9,7 +9,7 @@ module Fluent
     config_param :key_name, :string
     config_param :out_key, :string, :default => nil
     config_param :reserve_msg, :bool, :default => nil
-    config_param :prefix, :string, :default => nil
+    config_param :keys_prefix, :string, :default => nil
 
     def configure(conf)
       super
@@ -20,7 +20,7 @@ module Fluent
       end
 
       @sep_regex = Regexp.new(@separator)
-      if (!prefix.nil? && prefix.is_a?(String))
+      if (!keys_prefix.nil? && keys_prefix.is_a?(String))
         @store_fun = method(:store_with_prefix)
       else
         @store_fun = method(:store)
@@ -60,7 +60,7 @@ module Fluent
     end
 
     def store_with_prefix(data, key, value)
-      data.store(@prefix+key, value)
+      data.store(@keys_prefix+key, value)
     end
 
   end
